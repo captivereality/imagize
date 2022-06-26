@@ -25,3 +25,8 @@ jobs:
       run: dotnet test --no-build --verbosity normal
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag captivereality/imagize:latest
+
+    - name: docker login
+      run: docker login -u DOCKERHUB_USERNAME -p DOCKERHUB_TOKEN
+    - name: Docker Push
+      run: docker push captivereality/imagize:latest
