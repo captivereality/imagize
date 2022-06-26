@@ -23,3 +23,5 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag captivereality/imagize:latest

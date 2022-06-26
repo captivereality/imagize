@@ -11,6 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImagizeTests", "ImagizeTest
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{C8CF230D-E136-4C7A-9A7E-0A2BAF24A796}"
 	ProjectSection(SolutionItems) = preProject
+		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
 		LICENCE.txt = LICENCE.txt
 		README.md = README.md
 	EndProjectSection

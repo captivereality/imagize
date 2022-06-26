@@ -14,7 +14,7 @@ This is the start of a really exciting journey in manipulating images from .net
 
 ## Cloning the Repo (for Development)
 
-	git clone https://<USERNAME>@github.comg/captivereality/imagize.git
+	git clone https://<USERNAME>@github.com/captivereality/imagize.git
 
 ## Building
 
