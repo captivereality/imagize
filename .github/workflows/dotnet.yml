@@ -31,6 +31,6 @@ jobs:
       run: docker build . --file Dockerfile --tag captivereality/imagize:latest
 
     - name: docker login
-      run: docker login -u DOCKERHUB_USERNAME -p DOCKERHUB_TOKEN
+      run: docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_TOKEN
     - name: Docker Push
       run: docker push captivereality/imagize:latest
