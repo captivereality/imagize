@@ -52,6 +52,8 @@ namespace Imagize.Controllers
             if (!await IsValidUri(uri))
                 return NotFound();
 
+            _logger.LogInformation("Resize");
+
             byte[] imageBytes = await _httpTools.DownloadAsync(uri);
 
             var result = await _imageTools.ResizeAsync(imageBytes, width, height, imageQuality, maintainAspectRatio);
@@ -73,7 +75,9 @@ namespace Imagize.Controllers
 
             if (!await IsValidUri(uri))
                 return "Invalid Uri or FileType";
-            
+
+            _logger.LogInformation("Get");
+
             byte[] result = await _httpTools.DownloadAsync(uri);
 
             return result.Count().ToString();

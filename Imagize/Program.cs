@@ -1,5 +1,7 @@
 using Imagize.Core.Extensions;
+using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.OpenApi.Models;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +9,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+
+builder.Host.UseSerilog(
+    (ctx, lc) => lc
+    .WriteTo.Console());
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -29,6 +37,17 @@ builder.Services.AddImagize(config =>
     config.AllowedFileTypes = allowedFileTypes;
 });
 
+builder.Services.AddHttpLogging(logging =>
+{
+    logging.LoggingFields = HttpLoggingFields.All;
+    logging.RequestHeaders.Add("X-Request-Header");
+    logging.ResponseHeaders.Add("X-Response-Header");
+    logging.RequestBodyLogLimit = 4096;
+    logging.ResponseBodyLogLimit = 4096;
+});
+
+
+
 builder.Configuration.AddEnvironmentVariables(prefix: "IMAGIZE_");
 
 Console.WriteLine($"allowedOrigins:{allowedOrigins}");
@@ -47,6 +66,8 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
+
+
 
 #if DEBUG
 //foreach (KeyValuePair<string, string> c in builder.Configuration.AsEnumerable())

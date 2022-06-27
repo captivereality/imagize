@@ -43,7 +43,9 @@ namespace Imagize.Controllers
 
             if (!await IsValidUri(uri))
                 return "Invalid Uri or FileType";
-            
+
+            _logger.LogInformation("Get");            
+
             byte[] result = await _httpTools.DownloadAsync(uri);
 
             return result.Count().ToString();
