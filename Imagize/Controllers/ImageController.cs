@@ -73,8 +73,8 @@ namespace Imagize.Controllers
         public async Task<string> Get([FromQuery] string uri)
         {
 
-            if (!await IsValidUri(uri))
-                return "Invalid Uri or FileType";
+            //if (!await IsValidUri(uri))
+            //    return "Invalid Uri or FileType";
 
             _logger.LogInformation("Get");
 
