@@ -39,7 +39,7 @@
         "IMAGIZE_ALLOWED_ORIGINS": "http://old2.markcastle.com|http://old.markcastle.com|https://s3.eu-west-2.amazonaws.com/old.markcastle.com-images"
       },
       "publishAllPorts": true,
-      "useSSL": true
+      "useSSL": false
     }
   }
 }
