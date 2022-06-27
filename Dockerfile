@@ -3,7 +3,6 @@
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
 EXPOSE 80
-EXPOSE 9000
 # EXPOSE 443 # not required as load balancer takes care of SSL
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
