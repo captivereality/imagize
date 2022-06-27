@@ -49,8 +49,9 @@ namespace Imagize.Controllers
             [FromQuery] bool maintainAspectRatio = true)
         {
 
-            // if (!await IsValidUri(uri))
-            //    return NotFound();
+            if (!await IsValidUri(uri))
+                // return NotFound();
+                _logger.LogInformation("Invalid Url");
 
             _logger.LogInformation("Resize");
 
@@ -85,6 +86,8 @@ namespace Imagize.Controllers
 
         private async Task<bool> IsValidUri(string uri)
         {
+            _logger.LogInformation("AllowedOrigins:{AllowedOrigins}", _imagizeOptions.AllowedOrigins);
+            _logger.LogInformation("AllowedFileTypes:{AllowedFileTypes}", _imagizeOptions.AllowedFileTypes);
 
             if (string.IsNullOrEmpty(uri))
                 return false;
@@ -100,9 +103,7 @@ namespace Imagize.Controllers
                 if (!_httpTools.IsValidFileType(uri, _imagizeOptions.AllowedFileTypes))
                     return false;
             }
-            
-            _logger.LogInformation("Allowed Origins:{origins}", _imagizeOptions.AllowedOrigins);
-
+          
             return true;
         }
     }
