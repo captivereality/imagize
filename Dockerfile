@@ -8,6 +8,9 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["Imagize/Imagize.csproj", "Imagize/"]
+COPY ["Imagize.Core/Imagize.Core.csproj", "Imagize.Core/"]
+COPY ["Imagize.Abstractions/Imagize.Abstractions.csproj", "Imagize.Abstractions/"]
+COPY ["Imagize.Providers.SkiaSharp/Imagize.Providers.SkiaSharp.csproj", "Imagize.Providers.SkiaSharp/"]
 RUN dotnet restore "Imagize/Imagize.csproj"
 COPY . .
 WORKDIR "/src/Imagize"
