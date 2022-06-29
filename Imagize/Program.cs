@@ -1,7 +1,10 @@
 using System.Diagnostics;
+using Imagize.Core;
 using Imagize.Core.Extensions;
 using Imagize.Providers.SkiaSharp.Extensions;
+using Imagize.Services;
 using Microsoft.AspNetCore.HttpLogging;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.OpenApi.Models;
 using Serilog;
 
@@ -43,13 +46,16 @@ namespace Imagize {
             string allowedOrigins = Environment.GetEnvironmentVariable("IMAGIZE_ALLOWED_ORIGINS") ?? "";
             string allowedFileTypes = Environment.GetEnvironmentVariable("IMAGIZE_ALLOWED_FILETYPES") ?? "";
 
-            
+
             builder.Services.AddImagize(config =>
             {
                 config.AllowedOrigins = allowedOrigins;
                 config.AllowedFileTypes = allowedFileTypes;
-            })
-                .AddImagizeSkiaSharp();
+            });
+            
+            builder.Services.AddImagizeSkiaSharp();
+
+            builder.Services.TryAddScoped<ImageService>();
 
             builder.Services.AddHttpLogging(logging =>
             {

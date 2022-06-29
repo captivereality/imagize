@@ -24,8 +24,6 @@ namespace Imagize.Providers.SkiaSharp
                 using MemoryStream ms = new(fileContents);
                 using SKBitmap sourceBitmap = SKBitmap.Decode(ms);
 
-
-
                 // Don't resize if not required.
                 if (maxWidth == 0 && maxHeight == 0)
                 {
