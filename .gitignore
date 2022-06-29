@@ -199,3 +199,9 @@ FakesAssemblies/
 
 # Rider
 .idea
+
+# BenchmarkDotNet
+ImagizeBenchmarking/BenchmarkDotNet.Artifacts/*
+
+# Helm Charts
+*.tgz

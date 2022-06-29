@@ -3,19 +3,26 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32519.379
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Imagize", "Imagize\Imagize.csproj", "{978F47CC-2984-47F4-937C-4E27D9F5EA1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Imagize", "Imagize\Imagize.csproj", "{978F47CC-2984-47F4-937C-4E27D9F5EA1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Imagize.Core", "Imagize.Core\Imagize.Core.csproj", "{7D57ED5E-8EF7-445E-9D70-F4879C0677F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Imagize.Core", "Imagize.Core\Imagize.Core.csproj", "{7D57ED5E-8EF7-445E-9D70-F4879C0677F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImagizeTests", "ImagizeTests\ImagizeTests.csproj", "{818963DB-C828-4A79-BDAD-EB28EEDA2D5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImagizeTests", "ImagizeTests\ImagizeTests.csproj", "{818963DB-C828-4A79-BDAD-EB28EEDA2D5E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{C8CF230D-E136-4C7A-9A7E-0A2BAF24A796}"
 	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
 		Dockerfile = Dockerfile
 		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
 		LICENCE.txt = LICENCE.txt
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImagizeBenchmarking", "ImagizeBenchmarking\ImagizeBenchmarking.csproj", "{86149C8B-D71A-4945-B17B-856E56E8A04F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Imagize.Providers.SkiaSharp", "Imagize.Providers.SkiaSharp\Imagize.Providers.SkiaSharp.csproj", "{5EBD4B56-6325-43CC-B54F-DCBF6E4EC15C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Imagize.Abstractions", "Imagize.Abstractions\Imagize.Abstractions.csproj", "{159DBAEE-4759-4626-BDC3-A6CE7E221B11}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +56,30 @@ Global
 		{818963DB-C828-4A79-BDAD-EB28EEDA2D5E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{818963DB-C828-4A79-BDAD-EB28EEDA2D5E}.Release|x64.ActiveCfg = Release|Any CPU
 		{818963DB-C828-4A79-BDAD-EB28EEDA2D5E}.Release|x64.Build.0 = Release|Any CPU
+		{86149C8B-D71A-4945-B17B-856E56E8A04F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86149C8B-D71A-4945-B17B-856E56E8A04F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86149C8B-D71A-4945-B17B-856E56E8A04F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{86149C8B-D71A-4945-B17B-856E56E8A04F}.Debug|x64.Build.0 = Debug|Any CPU
+		{86149C8B-D71A-4945-B17B-856E56E8A04F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86149C8B-D71A-4945-B17B-856E56E8A04F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86149C8B-D71A-4945-B17B-856E56E8A04F}.Release|x64.ActiveCfg = Release|Any CPU
+		{86149C8B-D71A-4945-B17B-856E56E8A04F}.Release|x64.Build.0 = Release|Any CPU
+		{5EBD4B56-6325-43CC-B54F-DCBF6E4EC15C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EBD4B56-6325-43CC-B54F-DCBF6E4EC15C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EBD4B56-6325-43CC-B54F-DCBF6E4EC15C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5EBD4B56-6325-43CC-B54F-DCBF6E4EC15C}.Debug|x64.Build.0 = Debug|Any CPU
+		{5EBD4B56-6325-43CC-B54F-DCBF6E4EC15C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EBD4B56-6325-43CC-B54F-DCBF6E4EC15C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EBD4B56-6325-43CC-B54F-DCBF6E4EC15C}.Release|x64.ActiveCfg = Release|Any CPU
+		{5EBD4B56-6325-43CC-B54F-DCBF6E4EC15C}.Release|x64.Build.0 = Release|Any CPU
+		{159DBAEE-4759-4626-BDC3-A6CE7E221B11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{159DBAEE-4759-4626-BDC3-A6CE7E221B11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{159DBAEE-4759-4626-BDC3-A6CE7E221B11}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{159DBAEE-4759-4626-BDC3-A6CE7E221B11}.Debug|x64.Build.0 = Debug|Any CPU
+		{159DBAEE-4759-4626-BDC3-A6CE7E221B11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{159DBAEE-4759-4626-BDC3-A6CE7E221B11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{159DBAEE-4759-4626-BDC3-A6CE7E221B11}.Release|x64.ActiveCfg = Release|Any CPU
+		{159DBAEE-4759-4626-BDC3-A6CE7E221B11}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

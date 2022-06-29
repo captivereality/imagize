@@ -1,6 +1,5 @@
-﻿using SkiaSharp;
-
-namespace Imagize.Core
+﻿
+namespace Imagize.Abstractions
 {
     public interface IImageTools
     {

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Imagize.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Imagize.Core.Extensions
@@ -30,7 +31,7 @@ namespace Imagize.Core.Extensions
 
             services.TryAddScoped<IExifTools, ExifRemover>();
             services.TryAddScoped<IHttpTools, HttpTools>();
-            services.TryAddScoped<IImageTools, ImageTools>();
+            
             return services;
         }
     }

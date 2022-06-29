@@ -1,6 +1,7 @@
-﻿using SkiaSharp;
+﻿using Imagize.Abstractions;
+using SkiaSharp;
 
-namespace Imagize.Core.Extensions
+namespace Imagize.Providers.SkiaSharp.Extensions
 {
     public static class ImageQualityExtensions
     {

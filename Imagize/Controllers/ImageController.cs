@@ -3,6 +3,8 @@ using Imagize.Core.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Collections;
+using System.Text.Json.Serialization;
+using Imagize.Abstractions;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace Imagize.Controllers
@@ -48,12 +50,12 @@ namespace Imagize.Controllers
             [FromQuery] ImageQuality imageQuality = ImageQuality.Medium,
             [FromQuery] bool maintainAspectRatio = true)
         {
-
+            
             if (!await IsValidUri(uri))
                 return NotFound("Invalid Uri or file type");
 
             _logger.LogInformation("Resize");
-
+            
             byte[] imageBytes = await _httpTools.DownloadAsync(uri);
 
             (byte[] FileContents, int Height, int Width) result = 

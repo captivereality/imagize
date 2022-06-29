@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Runtime.ConstrainedExecution;
-using System.Text;
-using System.Threading.Tasks;
-using Imagize.Core.Extensions;
-using Microsoft.Extensions.Options;
-
-namespace Imagize.Core
+﻿namespace Imagize.Core
 {
     public class HttpTools : IHttpTools
     {

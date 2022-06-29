@@ -3,6 +3,7 @@ using Imagize.Core.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Collections;
+using Imagize.Abstractions;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace Imagize.Controllers

@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Imagize.Core\Imagize.Core.csproj" />
+    <ProjectReference Include="..\Imagize.Providers.SkiaSharp\Imagize.Providers.SkiaSharp.csproj" />
   </ItemGroup>
 
 </Project>
