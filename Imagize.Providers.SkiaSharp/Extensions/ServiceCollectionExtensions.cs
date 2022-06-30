@@ -1,6 +1,4 @@
 ﻿using Imagize.Abstractions;
-using Imagize.Core;
-using Imagize.Providers.SkiaSharp;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 

@@ -49,7 +49,8 @@ namespace Imagize.Controllers
             [FromQuery] int width = 0, 
             [FromQuery] int height = 0, 
             [FromQuery] ImageQuality imageQuality = ImageQuality.Medium,
-            [FromQuery] bool maintainAspectRatio = true)
+            [FromQuery] bool maintainAspectRatio = true,
+            [FromQuery] bool autoRotate = true)
         {
             
             if (!await _imageService.IsValidUri(uri))
@@ -62,11 +63,14 @@ namespace Imagize.Controllers
             if (imageBytes.Length == 0)
                 return NotFound("Invalid Image");
 
+            // Get the file format.
+            // Note for more formats we could use..
+            // https://github.com/drewnoakes/metadata-extractor/wiki/File-Type-Detection
             ImageFormat imageType = _imageService.GetImageFormat(imageBytes);
             _logger.LogInformation("Image type detected:{imageType}", imageType.ToString());
 
             (byte[] FileContents, int Height, int Width) result = 
-                await _imageTools.ResizeAsync(imageBytes, width, height, imageQuality, maintainAspectRatio);
+                await _imageTools.ResizeAsync(imageBytes, width, height, imageQuality, maintainAspectRatio, autoRotate);
 
             return File(result.FileContents, $"image/{imageType.ToString().ToLower()}");
 

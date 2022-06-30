@@ -1,6 +1,7 @@
 ﻿using Imagize.Abstractions;
 using Imagize.Core;
 using Imagize.Core.Extensions;
+using MetadataExtractor;
 using Microsoft.Extensions.Options;
 
 namespace Imagize.Services
@@ -56,13 +57,13 @@ namespace Imagize.Services
 
             const int INT_SIZE = 4; // We only need to check the first four bytes of the file / byte array.
 
-            var bmp = System.Text.Encoding.ASCII.GetBytes("BM");     // BMP
-            var gif = System.Text.Encoding.ASCII.GetBytes("GIF");    // GIF
-            var png = new byte[] { 137, 80, 78, 71 };                // PNG
-            var tiff = new byte[] { 73, 73, 42 };                    // TIFF
-            var tiff2 = new byte[] { 77, 77, 42 };                   // TIFF
-            var jpeg = new byte[] { 255, 216, 255, 224 };            // jpeg
-            var jpeg2 = new byte[] { 255, 216, 255, 225 };           // jpeg2 (canon)
+            var bmp = System.Text.Encoding.ASCII.GetBytes("BM");    // BMP
+            var gif = System.Text.Encoding.ASCII.GetBytes("GIF");   // GIF
+            var png = new byte[] { 137, 80, 78, 71 };                       // PNG
+            var tiff = new byte[] { 73, 73, 42 };                           // TIFF
+            var tiff2 = new byte[] { 77, 77, 42 };                          // TIFF
+            var jpeg = new byte[] { 255, 216, 255, 224 };                   // jpeg
+            var jpeg2 = new byte[] { 255, 216, 255, 225 };                  // jpeg2 (canon)
 
             // Copy the first 4 bytes into our buffer 
             var buffer = new byte[INT_SIZE];
@@ -90,6 +91,16 @@ namespace Imagize.Services
                 return ImageFormat.JPEG;
 
             return ImageFormat.UNKNOWN;
+        }
+
+        public async Task<IReadOnlyList<MetadataExtractor.Directory>> GetMetadata(byte[] bytes)
+        {
+            return await GetMetadata(new MemoryStream(bytes));
+        }
+
+        public async Task<IReadOnlyList<MetadataExtractor.Directory>> GetMetadata(Stream stream)
+        {
+            return await Task.Run(() => ImageMetadataReader.ReadMetadata(stream));
         }
 
     }

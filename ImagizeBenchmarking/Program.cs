@@ -1,7 +1,4 @@
-﻿using System;
-using System.Net.Http;
-using BenchmarkDotNet.Running;
-using Imagize.Core;
+﻿using BenchmarkDotNet.Running;
 
 namespace ImagizeBenchmarking
 {

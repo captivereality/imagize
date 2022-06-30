@@ -1,10 +1,10 @@
+using Imagize.Abstractions;
 using Imagize.Core;
 using Imagize.Core.Extensions;
+using Imagize.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using System.Collections;
-using Imagize.Abstractions;
-using static System.Net.Mime.MediaTypeNames;
+using System.Text.Json;
 
 namespace Imagize.Controllers
 {
@@ -18,16 +18,19 @@ namespace Imagize.Controllers
         private readonly IHttpTools _httpTools;
         private readonly IImageTools _imageTools;
         private readonly ImagizeOptions _imagizeOptions;
+        private readonly ImageService _imageService;
 
         public InfoController(ILogger<InfoController> logger, 
             IHttpTools httpTools,
             IImageTools imageTools,
-            IOptions<ImagizeOptions> imagizeOptions)
+            IOptions<ImagizeOptions> imagizeOptions,
+            ImageService imageService)
         {
             _logger = logger;
             _httpTools = httpTools;
             _imageTools = imageTools;
             _imagizeOptions = imagizeOptions.Value;
+            _imageService = imageService;
         }
 
        
@@ -39,40 +42,23 @@ namespace Imagize.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpGet]
-        public async Task<string> Get([FromQuery] string uri)
+        public async Task<IActionResult> Get([FromQuery] string uri)
         {
-
-            if (!await IsValidUri(uri))
-                return "Invalid Uri or FileType";
+            
+            if (!await _imageService.IsValidUri(uri))
+                return NotFound("Invalid Uri or FileType");
 
             _logger.LogInformation("Get");            
 
             byte[] result = await _httpTools.DownloadAsync(uri);
 
-            return result.Count().ToString();
+            var metaData = await _imageService.GetMetadata(result);
+
+            return Ok(JsonSerializer.Serialize(metaData));
+
+            // return result.Count().ToString();
         }
 
-        private async Task<bool> IsValidUri(string uri)
-        {
 
-            if (string.IsNullOrEmpty(uri))
-                return false;
-            
-            if (_imagizeOptions.AllowedOrigins is not null)
-            {
-                if (!_httpTools.IsValidOrigin(uri, _imagizeOptions.AllowedOrigins))
-                    return false;
-            }
-
-            if (_imagizeOptions.AllowedFileTypes is not null)
-            {
-                if (!_httpTools.IsValidFileType(uri, _imagizeOptions.AllowedFileTypes))
-                    return false;
-            }
-            
-            _logger.LogInformation("Allowed Origins:{origins}", _imagizeOptions.AllowedOrigins);
-
-            return true;
-        }
     }
 }

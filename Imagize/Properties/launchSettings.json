@@ -15,8 +15,8 @@
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "IMAGIZE_ALLOWED_FILETYPES": "jpg|jpeg|png|gif",
-        "IMAGIZE_ALLOWED_ORIGINS": "http://old2.markcastle.com|http://old.markcastle.com|http://markcastle.com|http://www.markcastle.com"
+        "IMAGIZE_ALLOWED_FILETYPES": "jpg|jpeg|png|gif|heic|heif",
+        "IMAGIZE_ALLOWED_ORIGINS": "http://old2.markcastle.com|http://old.markcastle.com|http://markcastle.com|http://www.markcastle.com|https://s3.eu-west-2.amazonaws.com/old.markcastle.com-images"
       },
       "applicationUrl": "https://localhost:7122;http://localhost:5122",
       "dotnetRunMessages": true

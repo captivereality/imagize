@@ -1,4 +1,3 @@
-using System;
 using Imagize.Core;
 
 namespace ImagizeTests
