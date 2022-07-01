@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Reflection;
 using Imagize.Core;
 using Imagize.Core.Extensions;
 using Imagize.Providers.SkiaSharp.Extensions;
@@ -39,6 +40,11 @@ namespace Imagize {
                     Title = "Imagizer.Net API",
                     Description = "An ASP.NET Core Web Api for image manipulation",
                 });
+
+                // Add Comments to Swagger..
+                // see: https://stackoverflow.com/questions/44643151/how-to-include-xml-comments-files-in-swagger-in-asp-net-core
+                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml")); ;
+
             });
 
             builder.Services.AddHttpClient();

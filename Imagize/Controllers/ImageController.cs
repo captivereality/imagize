@@ -33,7 +33,7 @@ namespace Imagize.Controllers
         }
 
         /// <summary>
-        /// Resize Image
+        /// Resize an Image with optional auto rotate
         /// </summary>
         /// <param name="uri"></param>
         /// <param name="width"></param>

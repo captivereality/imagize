@@ -35,7 +35,7 @@ namespace Imagize.Controllers
 
        
         /// <summary>
-        /// Get Exif Data
+        /// Get All Exif Data for a source image
         /// </summary>
         /// <param name="uri"></param>
         /// <returns>string</returns>

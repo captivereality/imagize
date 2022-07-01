@@ -8,6 +8,10 @@ namespace Imagize.Controllers
     [Route("api/[controller]/[action]")]
     public class HealthController : Controller
     {
+        /// <summary>
+        /// Get the current health of this server
+        /// </summary>
+        /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpGet]
