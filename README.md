@@ -1,6 +1,7 @@
 
 # Imagize.NET
 
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/captivereality/imagize/.NET?style=for-the-badge) ![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/captivereality/imagize/latest?style=for-the-badge)
 Simple fast and modern HTTP microservice written in C# for image processing.  Initially this library will allow for resizing images but the intention is that it will be extended over time to do far more such as cropping, watermarking etc.
 
 The general idea is that you can use it as a proxy to manipulate images on the fly.
