@@ -33,11 +33,13 @@ todo
 
 ## Environment Variables
 
+Multiple env vars should be separated with pipes eg...  var1|var2
+
 |Env Var       |Description              |Example|
 |-----------|-------------------------|------|
-|ASPNETCORE_ENVIRONMENT|Development Environment|`Development` or `Production`|
-|IMAGIZE_ALLOWED_FILETYPES|Supported Filetypes|`jpg|jpeg|png|gif|heic|heif`|
-|IMAGIZE_ALLOWED_ORIGINS|Allowed Origins|`http://www.mysite.com|https://s3.eu-west-2.amazonaws.com/my-s3`
+|ASPNETCORE_ENVIRONMENT|Development Environment|`Development` or `Production` |
+|IMAGIZE_ALLOWED_FILETYPES|Supported Filetypes| `jpg|jpeg|png|gif|heic|heif` |
+|IMAGIZE_ALLOWED_ORIGINS|Allowed Origins | `http://www.mysite.com|https://s3.eu-west-2.amazonaws.com/my-s3` |
 
 Note: On Windows you may need to include double slashes.. eg for every slash add a further slash.
 
