@@ -1,6 +1,3 @@
-using System.Diagnostics;
-using System.Reflection;
-using Imagize.Core;
 using Imagize.Core.Extensions;
 using Imagize.Providers.SkiaSharp.Extensions;
 using Imagize.Services;
@@ -8,8 +5,11 @@ using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using System.Diagnostics;
+using System.Reflection;
 
-namespace Imagize {
+namespace Imagize
+{
 
     public class Program
     {
@@ -85,7 +85,7 @@ namespace Imagize {
             //{
             app.UseSwagger();
             app.UseSwaggerUI();
-            // }
+            //}
 
             // app.UseHttpsRedirection();
 

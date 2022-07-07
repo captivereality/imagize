@@ -44,19 +44,21 @@ namespace Imagize.Controllers
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] string uri)
         {
-            
+
+            // Guard against invalid uri
             if (!await _imageService.IsValidUri(uri))
                 return NotFound("Invalid Uri or FileType");
 
-            _logger.LogInformation("Get");            
-
+            // Download the source image
             byte[] result = await _httpTools.DownloadAsync(uri);
 
-            var metaData = await _imageService.GetMetadata(result);
+            // Ensure we've got some bytes at least
+            if (result.Length <= 0)
+                return NotFound("Invalid File");
 
-            return Ok(JsonSerializer.Serialize(metaData));
+            // Extract metadata from the image
+            return Ok(JsonSerializer.Serialize(await _imageService.GetMetadata(result)));
 
-            // return result.Count().ToString();
         }
 
 

@@ -11,7 +11,7 @@ namespace Imagize.Controllers
     [Route("api/[controller]/[action]")]
     public class ImageController : ControllerBase
     {
-        
+
 
         private readonly ILogger<ImageController> _logger;
         private readonly IHttpTools _httpTools;
@@ -19,7 +19,7 @@ namespace Imagize.Controllers
         private readonly ImagizeOptions _imagizeOptions;
         private readonly ImageService _imageService;
 
-        public ImageController(ILogger<ImageController> logger, 
+        public ImageController(ILogger<ImageController> logger,
             IHttpTools httpTools,
             IImageTools imageTools,
             IOptions<ImagizeOptions> imagizeOptions,
@@ -33,31 +33,32 @@ namespace Imagize.Controllers
         }
 
         /// <summary>
-        /// Resize an Image with optional auto rotate
+        /// Resize an Image with optional auto rotation
         /// </summary>
         /// <param name="uri"></param>
         /// <param name="width"></param>
         /// <param name="height"></param>
         /// <param name="imageQuality"></param>
         /// <param name="maintainAspectRatio"></param>
+        /// <param name="autoRotate"></param>
         /// <returns>string</returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpGet]
         public async Task<IActionResult> Resize(
-            [FromQuery] string uri, 
-            [FromQuery] int width = 0, 
-            [FromQuery] int height = 0, 
+            [FromQuery] string uri,
+            [FromQuery] int width = 0,
+            [FromQuery] int height = 0,
             [FromQuery] ImageQuality imageQuality = ImageQuality.Medium,
             [FromQuery] bool maintainAspectRatio = true,
             [FromQuery] bool autoRotate = true)
         {
-            
+
             if (!await _imageService.IsValidUri(uri))
                 return NotFound("Invalid Uri or file type");
 
             _logger.LogInformation("Resize");
-            
+
             byte[] imageBytes = await _httpTools.DownloadAsync(uri);
 
             if (imageBytes.Length == 0)
@@ -69,13 +70,12 @@ namespace Imagize.Controllers
             ImageFormat imageType = _imageService.GetImageFormat(imageBytes);
             _logger.LogInformation("Image type detected:{imageType}", imageType.ToString());
 
-            (byte[] FileContents, int Height, int Width) result = 
+            (byte[] FileContents, int Height, int Width) result =
                 await _imageTools.ResizeAsync(imageBytes, width, height, imageQuality, maintainAspectRatio, autoRotate);
 
             return File(result.FileContents, $"image/{imageType.ToString().ToLower()}");
 
         }
 
-    
     }
 }
