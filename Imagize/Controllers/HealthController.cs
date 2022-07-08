@@ -22,7 +22,8 @@ namespace Imagize.Controllers
             Health health = new()
             {
                 UptimeMs = Program.StartTimer.ElapsedMilliseconds,
-                MemoryUsageBytes = proc.PrivateMemorySize64
+                MemoryUsageBytes = proc.PrivateMemorySize64,
+                CpuCores = Environment.ProcessorCount
             };
 
             return Ok(Json(health));

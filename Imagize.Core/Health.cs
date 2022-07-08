@@ -13,5 +13,7 @@
         /// </summary>
         public long MemoryUsageBytes { get; set; }
 
+        public int CpuCores { get; set; }
+
     }
 }
