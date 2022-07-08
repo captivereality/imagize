@@ -54,12 +54,45 @@ Fetch the image from docker
 
 Start the container on port 9000 with an interactive shell and remove it once it stops
 
-	docker run -p 0.0.0.0:9000:9000/tcp -e ASPNETCORE_URLS=http://+:9000  --name imagize captivereality/imagize:latest -it -rm
+	docker run -p 0.0.0.0:9000:80/tcp -e 'ASPNETCORE_ENVIRONMENT=Development' -e 'ASPNETCORE_URLS=http://+:80' -e 'IMAGIZE_ALLOWED_FILETYPES=jpg~jpeg~png~gif~heic' -e 'IMAGIZE_ALLOWED_ORIGINS=https://www.website.com~https://website.com~https://s3.eu-west-2.amazonaws.com/your-s3' --name imagize captivereality/imagize:latest -it -rm
 
 Check it's running...
 
 	docker ps
 
+Test it..
+
+	http://127.0.0.1:9000/swagger/index.html
+
+## Docker Compose
+
+
+An example `docker-compose.yml`
+
+```yaml
+version: '3'
+services:
+  imagize:
+    image: 'captivereality/imagize:latest'
+    container_name: imagize
+    restart: unless-stopped
+    mem_limit: 300m
+    ports:
+      - '9000:80'
+    environment:
+      - IMAGIZE_ALLOWED_FILETYPES=jpg|jpeg|png|gif|heic
+      - IMAGIZE_ALLOWED_ORIGINS=https://www.website.com|https://website.com|https://s3.eu-west-2.amazonaws.com/your-s3
+    networks:
+      - hosting
+
+networks:
+  hosting:
+    name: hosting
+```
+
+Bring it up with...
+
+	docker-compose up -d
 
 
 ## Change Log
