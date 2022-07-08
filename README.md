@@ -13,6 +13,21 @@ The library will be able to use any image processing library as long as the libr
 
 The other primary objective is to make it as accessible as possible such that anyone can run and consume the service and in order to do this we need to ensure it will always build and run in Linux containers.
 
+## Contents
+
+  * [Requirements](#requirements)
+  * [Cloning the Repo (for Development)](#cloning-the-repo--for-development-)
+  * [Building](#building)
+  * [Usage](#usage)
+  * [Environment Variables](#environment-variables)
+  * [Docker](#docker)
+  * [Docker Compose](#docker-compose)
+  * [Roadmap](#roadmap)
+  * [Change Log](#change-log)
+  * [Author/s](#author-s)
+  * [Copyright](#copyright)
+  * [Licence](#licence)
+
 ## Requirements
 
 - Visual Studio Code, Visual Studio 2022 (or Rider)
@@ -93,6 +108,20 @@ networks:
 Bring it up with...
 
 	docker-compose up -d
+
+
+## Roadmap
+
+- [x] SkiaSharp Provider
+- [x] Image Resize
+- [x] Server Health
+- [x] Image Exif (full)
+- [ ] Crop Image
+- [ ] Watermark Image
+- [ ] Zoom Image
+- [ ] Auto Rotate Image
+- [ ] Rotate Image
+- [ ] Blur Image
 
 
 ## Change Log
