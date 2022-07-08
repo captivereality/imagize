@@ -32,6 +32,14 @@ namespace ImagizeTests
             Assert.IsTrue(httpTools.IsValidOrigin("https://s3.eu-west-2.amazonaws.com/a-sub-domain/25.JPG",
                 "http://microsoft.com|http://google.com|https://another.com|https://s3.eu-west-2.amazonaws.com/a-sub-domain"));
 
+            // Using another allowed separator
+            Assert.IsTrue(httpTools.IsValidOrigin("https://s3.eu-west-2.amazonaws.com/a-sub-domain/25.JPG",
+                "http://microsoft.com,http://google.com,https://another.com,https://s3.eu-west-2.amazonaws.com/a-sub-domain"));
+
+            // Using another allowed separator
+            Assert.IsTrue(httpTools.IsValidOrigin("https://s3.eu-west-2.amazonaws.com/a-sub-domain/25.JPG",
+                "http://microsoft.com~http://google.com~https://another.com~https://s3.eu-west-2.amazonaws.com/a-sub-domain"));
+
         }
 
 

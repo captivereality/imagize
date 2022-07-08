@@ -3,7 +3,7 @@
     public class HttpTools : IHttpTools
     {
         private readonly HttpClient _httpClient;
-        private char separator = '|';
+        private readonly char[] _validSeparators = { '|', '~', ','};
 
         public HttpTools(HttpClient httpClient)
         {
@@ -52,7 +52,7 @@
             if (string.IsNullOrEmpty(imagizeOptionsAllowedOrigins))
                 return true;
 
-            string[] allowedOrigins = imagizeOptionsAllowedOrigins.Split(separator);
+            string[] allowedOrigins = imagizeOptionsAllowedOrigins.Split(_validSeparators);
 
             if (allowedOrigins.Length == 0)
                 return true;
@@ -105,7 +105,7 @@
             if (!Path.HasExtension(uri))
                 return false;
 
-            string[] allowedFileTypes = imagizeOptionsAllowedFileTypes.Split(separator);
+            string[] allowedFileTypes = imagizeOptionsAllowedFileTypes.Split(_validSeparators);
 
             if (allowedFileTypes.Length == 0)
                 return true; // Any file type is allowed as no restrictions were set.
