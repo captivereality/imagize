@@ -285,31 +285,32 @@ namespace Imagize.Providers.SkiaSharp
             int textSize, 
             CanvasOrigin canvasOrigin = CanvasOrigin.TopLeft)
         {
+            // Todo: Add some validation to make sure max text length isn't going to kill us
+
             using MemoryStream ms = new(imageBytes);
             using SKBitmap sourceBitmap = SKBitmap.Decode(ms);
 
             using SKCanvas canvas = new(sourceBitmap);
 
-            //using SKPaint paint = new SKPaint();
-            //paint.Color = SKColors.White;
-            //paint.TextSize = textSize;
-            //canvas.DrawText(text, x, y, paint);
-            //// return sourceBitmap;
-
-            RichString? rs = new RichString()
-                .TextColor(new SKColor(255, 255, 255, 128))
-                .Alignment(TextAlignment.Center)
-                // .FontFamily("Segoe UI")
-                .MarginBottom(20)
-                .Add(text, fontSize: textSize, fontWeight: 300, fontItalic: false);
-
-            // Todo: Add some validation to make sure max text length isn't going to kill us
-
             // Little hack so that we can draw from the bottom also
             if (canvasOrigin == CanvasOrigin.BottomLeft)
                 y = sourceBitmap.Height - y;
 
-            rs.Paint(canvas, new SKPoint(x, y));
+            //RichString? rs = new RichString()
+            //    .TextColor(new SKColor(255, 255, 255, 128))
+            //    .Alignment(TextAlignment.Center)
+            //    // .FontFamily("Segoe UI")
+            //    .MarginBottom(20)
+            //    .Add(text, fontSize: textSize, fontWeight: 300, fontItalic: false);
+
+            //rs.Paint(canvas, new SKPoint(x, y));
+
+            using SKPaint paint = new SKPaint();
+            paint.Color = SKColors.White;
+            paint.TextSize = textSize;
+            paint.Typeface = SKTypeface.Default;
+            canvas.DrawText(text, x, y, paint);
+            //// return sourceBitmap;
 
             using SKImage croppedImage = SKImage.FromBitmap(sourceBitmap);
             using SKData data = croppedImage.Encode();

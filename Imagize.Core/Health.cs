@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace Imagize.Core
 {
@@ -20,6 +21,10 @@ namespace Imagize.Core
         /// </summary>
         public int CpuCores { get; set; }
 
+        public string Platform { get; set; }
+        
+        public string Os { get; set; }
+
 
         public Health(long uptimeMs)
         {
@@ -28,6 +33,28 @@ namespace Imagize.Core
             UptimeMs = uptimeMs;
             MemoryUsageBytes = proc.PrivateMemorySize64;
             CpuCores = Environment.ProcessorCount;
+            Platform = GetOperatingSystem().ToString();
+            Os = Environment.OSVersion.ToString();
+        }
+
+        public static OSPlatform GetOperatingSystem()
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                return OSPlatform.OSX;
+            }
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                return OSPlatform.Linux;
+            }
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return OSPlatform.Windows;
+            }
+
+            throw new Exception("Cannot determine operating system!");
         }
     }
 }
