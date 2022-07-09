@@ -117,7 +117,7 @@ Bring it up with...
 - [x] Server Health
 - [x] Image Exif (full)
 - [x] Crop Image
-- [x] Watermark Image
+- [x] Watermark Image Text (Only working on Windows at the moment)
 - [ ] Zoom Image
 - [ ] Auto Rotate Image
 - [ ] Rotate Image
@@ -132,7 +132,7 @@ Bring it up with...
 |-----------|-------|-------------------------|
 |2022-06-26|v0.0.1|Initial Version|
 |2022-07-09|v0.0.2|Added rudimentary cropping|
-|2022-07-09|v0.0.3|Added basic text watermarking|
+|2022-07-09|v0.0.3|Added basic text watermarking (Windows Only)|
 
 ## Author/s
 
