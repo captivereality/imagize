@@ -1,4 +1,6 @@
-﻿namespace Imagize.Core
+﻿using System.Diagnostics;
+
+namespace Imagize.Core
 {
     public class Health
     {
@@ -13,7 +15,19 @@
         /// </summary>
         public long MemoryUsageBytes { get; set; }
 
+        /// <summary>
+        /// Number of CPU Cores Available
+        /// </summary>
         public int CpuCores { get; set; }
 
+
+        public Health(long uptimeMs)
+        {
+            using Process proc = Process.GetCurrentProcess();
+
+            UptimeMs = uptimeMs;
+            MemoryUsageBytes = proc.PrivateMemorySize64;
+            CpuCores = Environment.ProcessorCount;
+        }
     }
 }
