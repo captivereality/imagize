@@ -9,6 +9,10 @@ namespace Imagize.Abstractions
             ImageQuality imageQuality = ImageQuality.Medium,
             bool maintainAspectRatio = true,
             bool autoRotate = false);
-
+        Task<(byte[] FileContents, int Height, int Width)> CropAsync(byte[] imageBytes,
+            int left,
+            int top,
+            int right,
+            int bottom);
     }
 }

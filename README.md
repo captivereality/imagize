@@ -116,12 +116,14 @@ Bring it up with...
 - [x] Image Resize
 - [x] Server Health
 - [x] Image Exif (full)
-- [ ] Crop Image
+- [x ] Crop Image
 - [ ] Watermark Image
 - [ ] Zoom Image
 - [ ] Auto Rotate Image
 - [ ] Rotate Image
 - [ ] Blur Image
+- [ ] Smarter Cropping
+- [ ] Combine multiple operations together
 
 
 ## Change Log
@@ -129,6 +131,7 @@ Bring it up with...
 |Date       |Version|Description              |
 |-----------|-------|-------------------------|
 |2022-06-26|v0.0.1|Initial Version|
+|2022-07-09|v0.0.2|Added rudimentary cropping|
 
 ## Author/s
 
