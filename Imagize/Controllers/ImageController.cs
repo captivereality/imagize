@@ -4,6 +4,7 @@ using Imagize.Core.Extensions;
 using Imagize.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Imagize.Controllers
 {
@@ -116,6 +117,52 @@ namespace Imagize.Controllers
 
             (byte[] FileContents, int Height, int Width) result =
                 await _imageTools.CropAsync(imageBytes, left, top, right, bottom);
+
+            return File(result.FileContents, $"image/{imageType.ToString().ToLower()}");
+
+        }
+
+        /// <summary>
+        /// Watermark an image with Text
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <param name="text"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="textSize"></param>
+        /// <param name="canvasOrigin"></param>
+        /// <returns></returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpGet]
+        public async Task<IActionResult> WatermarkText(
+            [FromQuery] string uri,
+            [FromQuery] string text,
+            [FromQuery] int x = 0,
+            [FromQuery] int y = 0,
+            [FromQuery] int textSize = 0,
+            [FromQuery] CanvasOrigin canvasOrigin = CanvasOrigin.TopLeft
+        )
+        {
+
+            if (!await _imageService.IsValidUri(uri))
+                return NotFound("Invalid Uri or file type");
+
+            _logger.LogInformation("Resize");
+
+            byte[] imageBytes = await _httpTools.DownloadAsync(uri);
+
+            if (imageBytes.Length == 0)
+                return NotFound("Invalid Image");
+
+            // Get the file format.
+            // Note for more formats we could use..
+            // https://github.com/drewnoakes/metadata-extractor/wiki/File-Type-Detection
+            ImageFormat imageType = _imageService.GetImageFormat(imageBytes);
+            _logger.LogInformation("Image type detected:{imageType}", imageType.ToString());
+
+            (byte[] FileContents, int Height, int Width) result =
+                await _imageTools.AddTextAsync(imageBytes, text, x, y, textSize, canvasOrigin);
 
             return File(result.FileContents, $"image/{imageType.ToString().ToLower()}");
 

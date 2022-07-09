@@ -1,14 +1,16 @@
 ﻿
+using HarfBuzzSharp;
 using Imagize.Abstractions;
 using Imagize.Providers.SkiaSharp.Extensions;
 using SkiaSharp;
+using System.Drawing;
+using Topten.RichTextKit;
 
 namespace Imagize.Providers.SkiaSharp
 {
     public class ImageTools : IImageTools
     {
         
-
         public async Task<(byte[] FileContents, int Height, int Width)> ResizeAsync(
             byte[] fileContents,
             int maxWidth = 0,
@@ -146,9 +148,44 @@ namespace Imagize.Providers.SkiaSharp
             );
             return cropData;
         }
-    
 
-    public static SKBitmap Rotate(SKBitmap bitmap, double angle)
+        //public async Task<(byte[] image, int Height, int Width)> AddTextAsync(byte[] imageBytes, 
+        //    string text, 
+        //    int x, 
+        //    int y, 
+        //    int textSize = 20)
+        //{
+
+        //    SKBitmap sourceBitmap = await GetBitmap(imageBytes);
+
+        //    SKBitmap bitmapWithText = await AddTextAsync(sourceBitmap, text, x, y, textSize);
+
+        //    using SKImage croppedImage = SKImage.FromBitmap(bitmapWithText);
+        //    using SKData data = croppedImage.Encode();
+        //    return (data.ToArray(), croppedImage.Width, croppedImage.Height);
+
+        //}
+
+        private async Task<SKBitmap> GetBitmap(byte[] imageBytes)
+        {
+            using MemoryStream ms = new(imageBytes);
+            using SKBitmap sourceBitmap = SKBitmap.Decode(ms);
+            return sourceBitmap;
+            
+            //SKBitmap? bitmap = await Task.Run(() =>
+            //{
+            //    using MemoryStream ms = new(imageBytes);
+            //    using SKBitmap sourceBitmap = SKBitmap.Decode(ms);
+            //    return sourceBitmap;
+            //});
+
+            //return bitmap;
+        }
+        
+        #region ------------------------- Internal Methods -------------------------
+
+
+        public static SKBitmap Rotate(SKBitmap bitmap, double angle)
         {
             double radians = Math.PI * angle / 180;
             float sine = (float)Math.Abs(Math.Sin(radians));
@@ -221,7 +258,64 @@ namespace Imagize.Providers.SkiaSharp
             }
 
 
+
+        }
+        //public async Task<SKBitmap> AddTextAsync(byte[] imageBytes, string text, int x, int y, int textSize = 20)
+        //{
+
+         
+
+        //    //SKBitmap sourceBitmap = await Task.Run(() =>
+        //    //{
+        //    //    using SKCanvas canvas = new SKCanvas(bitmap);
+        //    //    using SKPaint paint = new SKPaint();
+        //    //    paint.Color = SKColors.White;
+        //    //    paint.TextSize = textSize;
+        //    //    canvas.DrawText(text, x, y, paint);
+        //    //    return bitmap;
+        //    //});
+
+        //    //return sourceBitmap;
+        //}
+
+        public async Task<(byte[] FileContents, int Height, int Width)> AddTextAsync(byte[] imageBytes, 
+            string text, 
+            int x, 
+            int y, 
+            int textSize, 
+            CanvasOrigin canvasOrigin = CanvasOrigin.TopLeft)
+        {
+            using MemoryStream ms = new(imageBytes);
+            using SKBitmap sourceBitmap = SKBitmap.Decode(ms);
+
+            using SKCanvas canvas = new(sourceBitmap);
+
+            //using SKPaint paint = new SKPaint();
+            //paint.Color = SKColors.White;
+            //paint.TextSize = textSize;
+            //canvas.DrawText(text, x, y, paint);
+            //// return sourceBitmap;
+
+            RichString? rs = new RichString()
+                .TextColor(new SKColor(255, 255, 255, 128))
+                .Alignment(TextAlignment.Center)
+                // .FontFamily("Segoe UI")
+                .MarginBottom(20)
+                .Add(text, fontSize: textSize, fontWeight: 300, fontItalic: false);
+
+            // Todo: Add some validation to make sure max text length isn't going to kill us
+
+            // Little hack so that we can draw from the bottom also
+            if (canvasOrigin == CanvasOrigin.BottomLeft)
+                y = sourceBitmap.Height - y;
+
+            rs.Paint(canvas, new SKPoint(x, y));
+
+            using SKImage croppedImage = SKImage.FromBitmap(sourceBitmap);
+            using SKData data = croppedImage.Encode();
+            return (data.ToArray(), croppedImage.Width, croppedImage.Height);
         }
 
+        #endregion ------------------------- Internal Methods -------------------------
     }
 }

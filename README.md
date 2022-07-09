@@ -116,8 +116,8 @@ Bring it up with...
 - [x] Image Resize
 - [x] Server Health
 - [x] Image Exif (full)
-- [x ] Crop Image
-- [ ] Watermark Image
+- [x] Crop Image
+- [x] Watermark Image
 - [ ] Zoom Image
 - [ ] Auto Rotate Image
 - [ ] Rotate Image
@@ -128,10 +128,11 @@ Bring it up with...
 
 ## Change Log
 
-|Date       |Version|Description              |
+|Date       |Version| Description              |
 |-----------|-------|-------------------------|
 |2022-06-26|v0.0.1|Initial Version|
 |2022-07-09|v0.0.2|Added rudimentary cropping|
+|2022-07-09|v0.0.3|Added basic text watermarking|
 
 ## Author/s
 
