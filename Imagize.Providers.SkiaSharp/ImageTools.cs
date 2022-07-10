@@ -2,15 +2,20 @@
 using HarfBuzzSharp;
 using Imagize.Abstractions;
 using Imagize.Providers.SkiaSharp.Extensions;
+using Microsoft.Extensions.Options;
 using SkiaSharp;
-using System.Drawing;
 using Topten.RichTextKit;
 
 namespace Imagize.Providers.SkiaSharp
 {
     public class ImageTools : IImageTools
     {
-        
+        private readonly ImagizeOptions _imagizeOptions;
+        public ImageTools(IOptions<ImagizeOptions> imagizeOptions)
+        {
+            _imagizeOptions = imagizeOptions.Value;
+        }
+
         public async Task<(byte[] FileContents, int Height, int Width)> ResizeAsync(
             byte[] fileContents,
             int maxWidth = 0,
@@ -283,7 +288,11 @@ namespace Imagize.Providers.SkiaSharp
             int x, 
             int y, 
             int textSize, 
-            CanvasOrigin canvasOrigin = CanvasOrigin.TopLeft)
+            CanvasOrigin canvasOrigin = CanvasOrigin.TopLeft,
+            byte red = 255,
+            byte green = 255,
+            byte blue = 255,
+            byte alpha = 128)
         {
             // Todo: Add some validation to make sure max text length isn't going to kill us
 
@@ -296,21 +305,28 @@ namespace Imagize.Providers.SkiaSharp
             if (canvasOrigin == CanvasOrigin.BottomLeft)
                 y = sourceBitmap.Height - y;
 
-            //RichString? rs = new RichString()
-            //    .TextColor(new SKColor(255, 255, 255, 128))
-            //    .Alignment(TextAlignment.Center)
-            //    // .FontFamily("Segoe UI")
-            //    .MarginBottom(20)
-            //    .Add(text, fontSize: textSize, fontWeight: 300, fontItalic: false);
+            // This is currently unsupported on Linux
+            if (_imagizeOptions.TextSupport == TextSupport.RichTextKit)
+            {
+                RichString? rs = new RichString()
+                    .TextColor(new SKColor(red, green, blue, alpha))
+                    .Alignment(TextAlignment.Center)
+                    .FontFamily("Segoe UI")
+                    .MarginBottom(20)
+                    .Add(text, fontSize: textSize, fontWeight: 300, fontItalic: false);
 
-            //rs.Paint(canvas, new SKPoint(x, y));
+                rs.Paint(canvas, new SKPoint(x, y));
+            }
+            else
+            {
+                using SKPaint paint = new SKPaint();
+                paint.Color = new SKColor(red, green, blue, alpha); // SKColors.White;
+                paint.TextSize = textSize;
+                paint.Typeface = SKTypeface.Default;
+                canvas.DrawText(text, x, y, paint);
+                //// return sourceBitmap;
+            }
 
-            using SKPaint paint = new SKPaint();
-            paint.Color = SKColors.White;
-            paint.TextSize = textSize;
-            paint.Typeface = SKTypeface.Default;
-            canvas.DrawText(text, x, y, paint);
-            //// return sourceBitmap;
 
             using SKImage croppedImage = SKImage.FromBitmap(sourceBitmap);
             using SKData data = croppedImage.Encode();

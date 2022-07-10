@@ -123,7 +123,7 @@ namespace Imagize.Controllers
         }
 
         /// <summary>
-        /// Watermark an image with Text
+        ///  Watermark an image with Text
         /// </summary>
         /// <param name="uri"></param>
         /// <param name="text"></param>
@@ -131,6 +131,10 @@ namespace Imagize.Controllers
         /// <param name="y"></param>
         /// <param name="textSize"></param>
         /// <param name="canvasOrigin"></param>
+        /// <param name="red"></param>
+        /// <param name="green"></param>
+        /// <param name="blue"></param>
+        /// <param name="alpha"></param>
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -141,7 +145,11 @@ namespace Imagize.Controllers
             [FromQuery] int x = 0,
             [FromQuery] int y = 0,
             [FromQuery] int textSize = 0,
-            [FromQuery] CanvasOrigin canvasOrigin = CanvasOrigin.TopLeft
+            [FromQuery] CanvasOrigin canvasOrigin = CanvasOrigin.TopLeft,
+            [FromQuery] int red = 255,
+            [FromQuery] int green = 255,
+            [FromQuery] int blue = 255,
+            [FromQuery] int alpha = 128
         )
         {
 
@@ -151,6 +159,10 @@ namespace Imagize.Controllers
             _logger.LogInformation("Resize");
 
             byte[] imageBytes = await _httpTools.DownloadAsync(uri);
+            byte r = (byte)Math.Clamp(red, 0, 255);
+            byte g = (byte)Math.Clamp(green, 0, 255);
+            byte b = (byte)Math.Clamp(blue, 0, 255);
+            byte a = (byte)Math.Clamp(alpha, 0, 255);
 
             if (imageBytes.Length == 0)
                 return NotFound("Invalid Image");
@@ -162,7 +174,7 @@ namespace Imagize.Controllers
             _logger.LogInformation("Image type detected:{imageType}", imageType.ToString());
 
             (byte[] FileContents, int Height, int Width) result =
-                await _imageTools.AddTextAsync(imageBytes, text, x, y, textSize, canvasOrigin);
+                await _imageTools.AddTextAsync(imageBytes, text, x, y, textSize, canvasOrigin, r, g, b, a);
 
             return File(result.FileContents, $"image/{imageType.ToString().ToLower()}");
 

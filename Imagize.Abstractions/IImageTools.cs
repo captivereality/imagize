@@ -20,6 +20,10 @@ namespace Imagize.Abstractions
             int x,
             int y, 
             int textSize = 20,
-            CanvasOrigin canvasOrigin = CanvasOrigin.TopLeft);
+            CanvasOrigin canvasOrigin = CanvasOrigin.TopLeft,
+            byte red = 255,
+            byte green = 255,
+            byte blue = 255,
+            byte alpha = 128);
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Diagnostics;
 using System.Reflection;
+using Imagize.Abstractions;
 
 namespace Imagize
 {
@@ -51,12 +52,14 @@ namespace Imagize
 
             string allowedOrigins = Environment.GetEnvironmentVariable("IMAGIZE_ALLOWED_ORIGINS") ?? "";
             string allowedFileTypes = Environment.GetEnvironmentVariable("IMAGIZE_ALLOWED_FILETYPES") ?? "";
+            string textSupport = Environment.GetEnvironmentVariable("IMAGIZE_TEXT") ?? "DEFAULT";
 
 
             builder.Services.AddImagize(config =>
             {
                 config.AllowedOrigins = allowedOrigins;
                 config.AllowedFileTypes = allowedFileTypes;
+                config.TextSupport = textSupport.Trim().ToUpper() == "RICHTEXTKIT" ? TextSupport.RichTextKit : TextSupport.Default;
             });
             
             builder.Services.AddImagizeSkiaSharp();

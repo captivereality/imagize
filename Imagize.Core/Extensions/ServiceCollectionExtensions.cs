@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Imagize.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Imagize.Core.Extensions
@@ -35,9 +36,5 @@ namespace Imagize.Core.Extensions
         }
     }
 
-    public class ImagizeOptions
-    {
-        public string? AllowedOrigins { get; set; }
-        public string? AllowedFileTypes { get; set; }
-    }
+  
 }

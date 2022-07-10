@@ -35,6 +35,7 @@
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
+        "IMAGIZE_TEXT": "DEFAULT",
         "IMAGIZE_ALLOWED_FILETYPES": "jpg|jpeg|png|gif",
         "IMAGIZE_ALLOWED_ORIGINS": "http://old2.markcastle.com|http://old.markcastle.com|https://s3.eu-west-2.amazonaws.com/old.markcastle.com-images"
       },

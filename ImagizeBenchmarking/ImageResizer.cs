@@ -1,6 +1,7 @@
 ﻿using BenchmarkDotNet.Attributes;
 using Imagize.Abstractions;
 using Imagize.Providers.SkiaSharp;
+using Microsoft.Extensions.Options;
 
 namespace ImagizeBenchmarking
 {
@@ -16,7 +17,14 @@ namespace ImagizeBenchmarking
 
         public ImageResizer()
         {
-            _imageTools = new ImageTools();
+            var mockImagizeOptions = Options.Create(new ImagizeOptions()
+            {
+                AllowedFileTypes = "",
+                AllowedOrigins = "",
+                TextSupport = TextSupport.Default,
+            });
+
+            _imageTools = new ImageTools(mockImagizeOptions);
             // Download the test image once
             HttpClient httpClient = new();
 
